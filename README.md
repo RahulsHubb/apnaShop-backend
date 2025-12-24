@@ -107,18 +107,7 @@ Stores user accounts and authentication-related data.
 /admin/users
 
 
-
----
-
-If you want next, I can:
-- Split this into **multiple .md files**
-- Add **API endpoints documentation**
-- Add **MongoDB indexes**
-- Create **ER diagram**
-- Add **Admin panel schema**
-
-Just tell me 👍
-
+```
 
 // ??????////
 
