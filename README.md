@@ -112,7 +112,7 @@ Stores user accounts and authentication-related data.
 // ??????////
 
 
-1️⃣ AUTH API (START HERE – MUST)
+## 1️⃣ AUTH API (START HERE – MUST)
 Why first?
 
 Every protected action depends on user identity
@@ -127,7 +127,7 @@ POST   /auth/refresh-token
 
 
 
-2️⃣ PRODUCT API (Second priority)
+## 2️⃣ PRODUCT API (Second priority)
 Why second?
 
 Home page
@@ -144,7 +144,7 @@ GET    /products?category=&price=&sort=
 POST   /products       (admin)
 PUT    /products/:id   (admin)
 DELETE /products/:id   (admin)
-3️⃣ CART API (Third)
+## 3️⃣ CART API (Third)
 Why now?
 
 Needs products
@@ -157,7 +157,7 @@ DELETE /cart/remove
 GET    /cart
 
 
-4️⃣ ADDRESS API
+## 4️⃣ ADDRESS API
 Why?
 
 Checkout needs address
@@ -168,7 +168,7 @@ POST   /address
 GET    /address
 PUT    /address/:id
 DELETE /address/:id
-5️⃣ ORDER API (MOST IMPORTANT)
+## 5️⃣ ORDER API (MOST IMPORTANT)
 
 POST   /orders
 GET    /orders
@@ -176,17 +176,18 @@ GET    /orders/:id
 PUT    /orders/:id/status   (admin)
 
 
-6️⃣ PAYMENT API
+## 6️⃣ PAYMENT API
 
 POST   /payment/create
 POST   /payment/verify
 
 
-7️⃣ REVIEW & RATING API
+## 7️⃣ REVIEW & RATING API
 
 POST   /reviews
 GET    /reviews/:productId
-🔥 BEST DEVELOPMENT FLOW (DO THIS)
+
+#🔥 BEST DEVELOPMENT FLOW (DO THIS)
 
 1️⃣ Auth
 2️⃣ Product
