@@ -1,12 +1,25 @@
-# 🛒 apnaShop Backend – Database Design & Authentication
+# 🛒 apnaShop Backend
 
-## 🗂️ Core Collections (Must-Have)
+A modern, scalable **eCommerce backend** built using **Node.js, TypeScript, Express, and MongoDB**.
 
 ---
 
-## 1️⃣ Users Collection
+## 📖 Overview
 
-Stores user accounts and authentication-related data.
+This backend handles:
+- User authentication & authorization
+- Product catalog management
+- Cart & checkout flow
+- Order & payment processing
+- Reviews & admin management
+
+Designed with **clean architecture**, **security**, and **scalability** in mind.
+
+---
+
+## 🗂️ Core Collections (Database Design)
+
+### 1️⃣ Users
 
 ```json
 {
@@ -18,8 +31,10 @@ Stores user accounts and authentication-related data.
   "role": "user", // user | admin
   "createdAt": "Date"
 }
+```
+### 2️⃣ Products
 
-
+```json
 {
   "_id": "ObjectId",
   "title": "Men Cotton T-Shirt",
@@ -38,8 +53,12 @@ Stores user accounts and authentication-related data.
   ],
   "createdAt": "Date"
 }
+```
+
+3️⃣ Cart (User / Guest)
 
 
+```json
 {
   "userId": "ObjectId", // null for guest users
   "items": [
@@ -52,8 +71,10 @@ Stores user accounts and authentication-related data.
   ],
   "updatedAt": "Date"
 }
+```
+### 4️⃣ Orders
 
-
+```json
 {
   "_id": "ObjectId",
   "userId": "ObjectId",
@@ -77,8 +98,10 @@ Stores user accounts and authentication-related data.
   },
   "createdAt": "Date"
 }
+```
+### 5️⃣ Reviews
 
-
+```json
 {
   "productId": "ObjectId",
   "userId": "ObjectId",
@@ -86,287 +109,115 @@ Stores user accounts and authentication-related data.
   "comment": "Great quality!",
   "createdAt": "Date"
 }
+```
+## 🧠 Authentication Strategy
+### JWT (Access Token + Refresh Token)
 
+### Password hashing using bcrypt
 
-{
-  "productId": "ObjectId",
-  "userId": "ObjectId",
-  "rating": 5,
-  "comment": "Great quality!",
-  "createdAt": "Date"
-}
+### Role-based access control (User / Admin)
 
-
+### 🔒 Protected Routes
+bash
+Copy code
 /checkout
 /orders
 /profile
-
-
+🔴 Admin Routes
+bash
+Copy code
 /admin/products
 /admin/orders
 /admin/users
-
-
-```
-
-// ??????////
-
-
-## 1️⃣ AUTH API (START HERE – MUST)
-Why first?
-
-Every protected action depends on user identity
-
-Needed for cart, orders, profile, checkout
+## 🔌 API Modules & Endpoints
+### 1️⃣ Authentication API
 
 POST   /auth/register
 POST   /auth/login
 POST   /auth/logout
 GET    /auth/me
 POST   /auth/refresh-token
-
-
-
-## 2️⃣ PRODUCT API (Second priority)
-Why second?
-
-Home page
-
-Search
-
-Category pages
-
-Product details
+### 2️⃣ Product API
+#### http
 
 GET    /products
 GET    /products/:id
 GET    /products?category=&price=&sort=
-POST   /products       (admin)
-PUT    /products/:id   (admin)
-DELETE /products/:id   (admin)
-## 3️⃣ CART API (Third)
-Why now?
-
-Needs products
-
-Optional auth (guest vs user)
-
+POST   /products            (admin)
+PUT    /products/:id        (admin)
+DELETE /products/:id        (admin)
+### 3️⃣ Cart API
+http
+Copy code
 POST   /cart/add
 PUT    /cart/update
 DELETE /cart/remove
 GET    /cart
-
-
-## 4️⃣ ADDRESS API
-Why?
-
-Checkout needs address
-
-Reusable for future orders
-
+### 4️⃣ Address API
+http
+Copy code
 POST   /address
 GET    /address
 PUT    /address/:id
 DELETE /address/:id
-## 5️⃣ ORDER API (MOST IMPORTANT)
-
+### 5️⃣ Order API
+http
+Copy code
 POST   /orders
 GET    /orders
 GET    /orders/:id
 PUT    /orders/:id/status   (admin)
-
-
-## 6️⃣ PAYMENT API
-
+### 6️⃣ Payment API
+http
+Copy code
 POST   /payment/create
 POST   /payment/verify
-
-
-## 7️⃣ REVIEW & RATING API
-
+### 7️⃣ Reviews & Wishlist API
+http
+Copy code
 POST   /reviews
 GET    /reviews/:productId
 
-#🔥 BEST DEVELOPMENT FLOW (DO THIS)
-
-1️⃣ Auth
-2️⃣ Product
-3️⃣ Cart
-4️⃣ Order (COD first)
-5️⃣ Payment gateway
-6️⃣ Reviews
-7️⃣ Admin dashboard
-
-src/
- ├─ models/
- ├─ routes/
- ├─ controllers/
- ├─ services/
- ├─ middlewares/
- ├─ utils/
- └─ app.ts
-
- GET    /auth/me
-POST   /auth/logout
-
-POST   /orders
-GET    /orders
-GET    /orders/:id
-
-GET    /address
-POST   /address
-PUT    /address/:id
-DELETE /address/:id
-
-POST   /reviews
 GET    /wishlist
 POST   /wishlist/add
-
-🔵 User Authentication REQUIRED
-GET    /auth/me
-POST   /auth/logout
-
-POST   /orders
-GET    /orders
-GET    /orders/:id
-
-GET    /address
-POST   /address
-PUT    /address/:id
-DELETE /address/:id
-
-POST   /reviews
-GET    /wishlist
-POST   /wishlist/add
-
-
-
-🔴 Admin Authentication REQUIRED
-POST   /products
-PUT    /products/:id
-DELETE /products/:id
-
-GET    /admin/orders
-PUT    /admin/orders/:id/status
-
-GET    /admin/users
-
-
-
-##Structuure for now 
-
-
-ecommerce-backend/
- ├─ src/
- │   ├─ app.ts
- │   ├─ server.ts
- │   ├─ config/
- │   │   └─ db.ts
- │   ├─ routes/
- │   ├─ controllers/
- │   ├─ models/
- │   ├─ middlewares/
- │   └─ utils/
- ├─ .env
- ├─ package.json
- └─ tsconfig.json
-
-
-
-//******************* ENDED ******************
-
-
-
-🗂️ Core Collections (Must-Have)
-1️⃣ Users
-{
-  _id: ObjectId,
-  name: "Rahul",
-  email: "rahul@gmail.com",
-  passwordHash: "...",
-  phone: "98xxxxxx",
-  role: "user", // or admin
-  createdAt,
-}
-
+## 🔥 Recommended Development Flow
+1️⃣ Authentication
 2️⃣ Products
-{
-  _id: ObjectId,
-  title: "Men Cotton T-Shirt",
-  description: "...",
-  category: "men",
-  brand: "Nike",
-  price: 999,
-  discount: 20,
-  stock: 50,
-  images: ["img1.jpg", "img2.jpg"],
-  ratings: 4.3,
-  reviewsCount: 120,
-  variants: [
-    { size: "M", color: "Black", stock: 10 },
-    { size: "L", color: "White", stock: 5 }
-  ],
-  createdAt
-}
+3️⃣ Cart
+4️⃣ Orders (COD first)
+5️⃣ Payment Gateway
+6️⃣ Reviews & Ratings
+7️⃣ Admin Dashboard
 
-3️⃣ Cart (User or Guest)
-{
-  userId: ObjectId, // null for guest
-  items: [
-    {
-      productId: ObjectId,
-      variantId: ObjectId,
-      quantity: 2,
-      priceAtThatTime: 899
-    }
-  ],
-  updatedAt
-}
+## 📁 Project Structure
+bash
+Copy code
 
-4️⃣ Orders
-{
-  _id: ObjectId,
-  userId: ObjectId,
-  items: [
-    {
-      productId,
-      name,
-      price,
-      quantity
-    }
-  ],
-  totalAmount: 2499,
-  paymentMethod: "COD",
-  paymentStatus: "pending",
-  orderStatus: "placed",
-  address: {
-    name,
-    phone,
-    city,
-    pincode
-  },
-  createdAt
-}
+```json
+ecommerce-backend/
+├── src/
+│ ├── app.ts
+│ ├── server.ts
+│ ├── config/
+│ │ └── db.ts
+│ ├── routes/
+│ ├── controllers/
+│ ├── models/
+│ ├── services/
+│ ├── middlewares/
+│ └── utils/
+├── .env
+├── package.json
+└── tsconfig.json
+```
+ 
+## ✅ Best Practices
+Validate inputs (Zod / Joi)
 
-5️⃣ Reviews
-{
-  productId: ObjectId,
-  userId: ObjectId,
-  rating: 5,
-  comment: "Great quality!",
-  createdAt
-}
+Use MongoDB indexes wisely
 
-🧠 Authentication Strategy
+Snapshot product data in orders
 
-JWT (access + refresh)
+Secure refresh tokens via HTTP-only cookies
 
-Password hashing → bcrypt
-
-Protect routes like:
-
-/checkout
-
-/orders
-
-/profile
+Keep controllers thin, move logic to services
