@@ -212,12 +212,13 @@ ecommerce-backend/
 ```
  
 ## ✅ Best Practices
-Validate inputs (Zod / Joi)
 
-Use MongoDB indexes wisely
 
-Snapshot product data in orders
+```json
+1️⃣ Async error handling
+2️⃣ JWT auth (no DB first)
+3️⃣ Validation
+4️⃣ MongoDB integration
+5️⃣ Real auth + cart + order flow
 
-Secure refresh tokens via HTTP-only cookies
-
-Keep controllers thin, move logic to services
+```
