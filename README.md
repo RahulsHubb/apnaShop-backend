@@ -229,3 +229,13 @@ schema = a set of rules that defines what fields a document can have and how dat
 
 model = an interface that uses the schema rules to create, read, update, and delete data in the database
 ```
+
+## 🧠 Even simpler (mental shortcut)
+```
+Schema → WHAT data looks like
+Model  → HOW we work with that data
+
+Schema = structure
+Model  = operations
+
+```
