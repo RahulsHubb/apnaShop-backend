@@ -222,3 +222,10 @@ ecommerce-backend/
 5️⃣ Real auth + cart + order flow
 
 ```
+
+## Understand Of SCHEMA and MODEL
+```
+schema = a set of rules that defines what fields a document can have and how data is stored in the database
+
+model = an interface that uses the schema rules to create, read, update, and delete data in the database
+```
