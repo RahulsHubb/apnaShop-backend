@@ -5,6 +5,7 @@ import { logger } from "./middlewares/logger.js";
 import { auth } from "./middlewares/auth.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { connectDb } from "./config/db.js";
+import userRoutes from './routes/user.routes.js'
 
 const app = express();
 
@@ -26,6 +27,7 @@ app.get("/test", async (req, res, next) => {
 });
 app.use("/api/products", productRoutes);
 app.use("/api/profile", profileRoutes);
+app.use('/api', userRoutes);
 
 app.use(errorHandler);
 

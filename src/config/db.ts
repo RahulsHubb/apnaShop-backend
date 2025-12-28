@@ -3,8 +3,8 @@ import dotenv from 'dotenv'
 dotenv.config({ path: '.env.local' })
 
 export const connectDb = async () => {
-    console.log('MONGO_URI =', process.env.MONGO_URI)
     try {
+        console.log("DB connected")
 
         await mongoose.connect(process.env.MONGO_URI || "");
         console.log("DB connected")
