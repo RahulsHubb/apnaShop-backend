@@ -4,11 +4,12 @@ import profileRoutes from "./routes/profile.routes.js";
 import { logger } from "./middlewares/logger.js";
 import { auth } from "./middlewares/auth.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
+import { connectDb } from "./config/db.js";
 
 const app = express();
 
 app.use(express.json());
-
+connectDb();
 app.use(logger);
 // app.use(auth);
 
