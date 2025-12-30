@@ -1,11 +1,45 @@
 import mongoose from "mongoose";
-import { timeStamp } from "node:console";
 
 const userSchema = new mongoose.Schema(
-    {
-        email: { type: 'string', required: true, unique: true },
-        password: { type: 'string', required: true },
-        name: { type: 'string', required: true },
-    }, { timestamps: true }
+  {
+    phone: {
+      type: String,
+      required: true,
+      unique: true,
+      index: true,
+    },
+
+    email: {
+      type: String,
+      unique: true,
+      sparse: true,
+      lowercase: true,
+      trim: true,
+    },
+
+    password: {
+      type: String, // only if email login is enabled
+      select: false, // 🔐 do not return by default
+    },
+
+    phoneVerified: {
+      type: Boolean,
+      default: true, // OTP verified at signup
+    },
+
+    emailVerified: {
+      type: Boolean,
+      default: false,
+    },
+
+    name: {
+      type: String,
+      trim: true,
+    },
+  },
+  {
+    timestamps: true,
+  }
 );
+
 export const User = mongoose.model("User", userSchema);
