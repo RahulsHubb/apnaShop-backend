@@ -2,11 +2,10 @@ import express from "express";
 import productRoutes from "./routes/product.routes.js";
 import profileRoutes from "./routes/profile.routes.js";
 import { logger } from "./middlewares/logger.js";
-import { auth } from "./middlewares/auth.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { connectDb } from "./config/db.js";
 import userRoutes from "./routes/user.routes.js";
-import authRoutes from "./routes/auth.routes.js";
+import authRoutes from "./routes/auth.route.js";
 
 const app = express();
 app.use(express.json());
