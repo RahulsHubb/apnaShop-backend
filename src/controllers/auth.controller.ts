@@ -13,7 +13,7 @@ export const login = async (req: Request, res: Response) => {
     role: user.role,
   });
 
-  res.json({ token });
+  res.status(200).json({ token });
 };
 
 export const sendOtp = async (req: Request, res: Response) => {
@@ -28,22 +28,22 @@ export const sendOtp = async (req: Request, res: Response) => {
     expiresAt: new Date(Date.now() + 5 * 60 * 1000),
   });
   console.log(otp);
-  return res.json({ message: "otp sent successfully", otp });
+  return res.status(200).json({ message: "otp sent successfully", otp });
 };
 
 export const verifyOtp = async (req: Request, res: Response) => {
   if (!req.body) {
-    return res.json({ message: "Expecting otp for verification." });
+    return res.status(400).json({ message: "Expecting otp for verification." });
   }
   const { phone, otp } = req.body;
   if (!phone || !otp) {
-    return res.json({
+    return res.status(400).json({
       message: "Expecting otp and Phone number for verification.",
     });
   }
   const record = await otpModel.findOne({ phone, otp });
   if (!record) {
-    return res.json({ message: "Invalid or Expired OTP." });
+    return res.status(204).json({ message: "Invalid or Expired OTP." });
   }
   let user = await User.findOne({ phone });
   let msg = "Welcome Back!";
@@ -55,5 +55,5 @@ export const verifyOtp = async (req: Request, res: Response) => {
   }
   const token = generateToken(user);
 
-  return res.json({ message: msg, token });
+  return res.status(200).json({ message: msg, token });
 };
