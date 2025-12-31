@@ -5,15 +5,17 @@ import otpModel from "../models/otp.model.js";
 import { User } from "../models/user.model.js";
 
 export const login = async (req: Request, res: Response) => {
-  // fake user
-  const user = { id: "123", role: "user" };
+  const { phone } = req.body;
+  const user = await User.findOne({ phone });
 
+  if (!user) {
+    return res.status(404).json({ message: "User is not register with us." });
+  }
   const token = generateToken({
-    userId: user.id,
-    role: user.role,
+    phone: user.phone,
   });
 
-  res.status(200).json({ token });
+  res.status(200).json({ token, user, message: "Login successfully!" });
 };
 
 export const sendOtp = async (req: Request, res: Response) => {
