@@ -43,9 +43,9 @@ export const verifyOtp = async (req: Request, res: Response) => {
       message: "Expecting otp and Phone number for verification.",
     });
   }
-  const record = await otpModel.findOne({ phone, otp });
-  if (!record) {
-    return res.status(204).json({ message: "Invalid or Expired OTP." });
+  const record = await otpModel.findOneAndDelete({ phone, otp });
+  if (!record || record.expiresAt < new Date()) {
+    return res.status(400).json({ message: "Invalid or Expired OTP." });
   }
   let user = await User.findOne({ phone });
   let msg = "Welcome Back!";
