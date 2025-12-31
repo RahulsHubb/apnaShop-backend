@@ -3,7 +3,7 @@ import { createUser, getUserByEmail } from "../controllers/getUserByEmail.js";
 
 const router = express.Router();
 
-router.post("/users/register", createUser);
-router.get("/users/:email", getUserByEmail);
+router.post("/register", createUser);
+router.get("/:email", getUserByEmail);
 
 export default router;
